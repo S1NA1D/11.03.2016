@@ -1,0 +1,40 @@
+## 1.- Simulacion de series de tiempo, vamos a simular 1 indicador para la simulacion en principio necesitamos alguna informacion
+## Valor máximo, mínimo, el numero de datos
+
+## En este ejemplo vamos a proponer la poblacion en México, que el valor minimo seran 100, max 120, 15 datos que inicie en 2000
+pob<- sample(100:120,15, replace = F)
+# La convertimos en series de tiempo
+pobts<- ts(pob,frequency = 1,start = 2000)
+x11()
+pdf("Población  México.pdf")
+plot(pobts,main="Poblacion  Mexico del 2000-2010",xlab="Tiempo",ylab="Total de Poblacion (millones)",col="dark red") ## darle formato
+dev.off()
+plot (aggregate(pobts))
+
+## Bajar de inegi la ocupacion de las personas
+## importar csv
+ocu<- ts( read.csv(("C:\\Users\\EDITH VELAZQUEZ\\Videos\\ENOE.csv"),header = F), frequency=4, start=2005)
+x11()
+plot(ocu) ## darle formato
+plot(aggregate(ocu)) ## darle formato
+
+###### EJERCICIO
+# Simular Tasa de desocupacion, 3 a 8, 2005, 40 datos, trimestral.
+# Bajar Inegi Tasa desocupacion
+# Importar en R
+# Comparar simulada con INEGI
+
+desocup<- sample(3:8,44, replace=TRUE)
+desocupts<- ts(desocup,frequency = 4,start = 2005)
+plot(desocupts,main="Tasa de desocupacion INEGI",xlab="Tiempo",ylab="Tasa",col="darkorange")
+plot(aggregate(desocupts))
+
+tdesocup<- ts( read.csv(("C:\\Users\\EDITH VELAZQUEZ\\Videos\\ENOE.csv"),header = F), frequency=4, start=2005)
+x11()
+plot(tdesocup,main="Tasa de desocupacion INEGI",xlab="Tiempo",ylab="Tasa",col="darkorange") ## darle formato
+plot(aggregate(tdesocup)) ## darle formato
+
+## Otra forma de mostrar dos graficos
+x11()
+plot(cbind(desocupts,tdesocup),col="darkblue",main="Tasa de desocupacion",xlab="Tiempo",ylab="Tasa")
+     
